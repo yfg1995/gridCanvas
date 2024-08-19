@@ -101,13 +101,7 @@ export class Grid {
       this.ctx.translate(x, y);
       this.ctx.scale(scale, scale);
       this.ctx.strokeStyle = "white";
-      this.ctx.roundRect(
-        0,
-        0,
-        this.cellSize.width,
-        this.cellSize.height,
-        15 / scale
-      );
+      this.ctx.roundRect(0, 0, this.cellSize.width, this.cellSize.height);
       this.ctx.stroke();
       this.ctx.fill();
 
@@ -185,26 +179,13 @@ export class Grid {
 
       const cell =
         this.cells[this.getIndex(this.mouseClamped.row, this.mouseClamped.col)];
-
       this.clickedIndex = cell.i;
+      cell.scale = 3;
 
       gsap.to(cell, {
-        x: this.canvas.width * 0.5 - this.cellSize.width * (cell.scale - 1),
-        y: this.canvas.height * 0.5 - this.cellSize.height * (cell.scale - 1),
-        scale: 3,
+        x: this.canvas.width * 0.5 - this.cellSize.width * 0.5 * cell.scale,
+        y: this.canvas.height * 0.5 - this.cellSize.height * 0.5 * cell.scale,
       });
-
-      //   gsap.to(this.cells, {
-      //     keyframes: {
-      //       scale: [1, 1.5, 1],
-      //     },
-      //     stagger: {
-      //       each: 0.1,
-      //       from: this.clickedIndex,
-      //       grid: [this.cols, this.rows],
-      //         ease: "power2.inOut",
-      //     },
-      //   });
     });
   }
 
